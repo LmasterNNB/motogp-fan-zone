@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/standings.js": {
+      "maxDuration": 15
+    }
+  }
+}

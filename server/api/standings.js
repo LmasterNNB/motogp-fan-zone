@@ -29,10 +29,12 @@ async function getJson(url) {
   });
   if (!response.ok) {
     throw new Error(`MotoGP API HTTP ${response.status}`);
-  }
+  }&isFinished=true
   return response.json();
 }
-
+const events = await getJson(
+  `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}&isFinished=true`
+);
 export async function GET() {
   try {
     const seasons = await getJson(`${API}/results/seasons`);

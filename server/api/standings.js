@@ -41,10 +41,6 @@ export async function GET() {
     const season = seasons.find((s) => s.current === true || Number(s.year) === year) || seasons[0];
 
     if (!season?.id) throw new Error("Saison MotoGP introuvable");
-    
-    const events = await getJson(
-  `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}&isFinished=true`
-);
 
     const categories = await getJson(
       `${API}/results/categories?seasonUuid=${encodeURIComponent(season.id)}`

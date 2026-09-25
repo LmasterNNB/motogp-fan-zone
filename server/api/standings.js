@@ -29,12 +29,11 @@ async function getJson(url) {
   });
   if (!response.ok) {
     throw new Error(`MotoGP API HTTP ${response.status}`);
-  }&isFinished=true
+  }
+  
   return response.json();
 }
-const events = await getJson(
-  `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}&isFinished=true`
-);
+
 export async function GET() {
   try {
     const seasons = await getJson(`${API}/results/seasons`);
@@ -42,6 +41,10 @@ export async function GET() {
     const season = seasons.find((s) => s.current === true || Number(s.year) === year) || seasons[0];
 
     if (!season?.id) throw new Error("Saison MotoGP introuvable");
+    
+    const events = await getJson(
+  `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}&isFinished=true`
+);
 
     const categories = await getJson(
       `${API}/results/categories?seasonUuid=${encodeURIComponent(season.id)}`
@@ -68,7 +71,7 @@ export async function GET() {
     let latestRace = null;
     try {
       const events = await getJson(
-        `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}`
+        `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}`&isFinished=true
       );
 
       const finishedEvents = (Array.isArray(events) ? events : [])

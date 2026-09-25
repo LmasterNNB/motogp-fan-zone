@@ -71,7 +71,7 @@ export async function GET() {
     let latestRace = null;
     try {
       const events = await getJson(
-        `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}`&isFinished=true
+        `${API}/results/events?seasonUuid=${encodeURIComponent(season.id)}&isFinished=true
       );
 
       const finishedEvents = (Array.isArray(events) ? events : [])
